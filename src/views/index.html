@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>📋 Task Manager</h1>
+        <a href="{{ url_for('task_bp.create') }}" class="btn btn-primary">➕ Create Task</a>
+
+        {% if tasks %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td class="status {{ task.status }}">{{ task.status|capitalize }}</td>
+                        <td>{{ 'High' if task.priority == 1 else 'Medium' if task.priority == 2 else 'Low' }}</td>
+                        <td>{{ task.due_date if task.due_date else '-' }}</td>
+                        <td>
+                            <a href="{{ url_for('task_bp.edit', task_id=task.id) }}" class="btn btn-edit">✏️ Edit</a>
+                            <form action="{{ url_for('task_bp.delete', task_id=task.id) }}" method="post"
+                                style="display:inline;">
+                                <button type="submit" class="btn btn-delete">🗑 Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-tasks">No tasks yet. Create one!</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
