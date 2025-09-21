@@ -1,3 +1,4 @@
+from os import curdir
 import sqlite3
 from config.config import DATABASE
 from datetime import datetime
@@ -48,6 +49,7 @@ class Task:
             """, (self.title, self.description, self.created_at, self.due_date,
                   self.completed_at, self.status, self.priority, self.tags))
             conn.commit()
+            
 
     @classmethod
     def all(cls):

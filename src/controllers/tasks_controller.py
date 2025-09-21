@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.models.taks_model import Task
+from src.models.task_model import Task
 
 task_bp = Blueprint('task_bp', __name__, template_folder="../views")
 
