@@ -7,12 +7,7 @@ import config
 
 app = Flask(__name__)
 app.config.from_object(config)
-
-# Crear tabla si no existe
-if not os.path.exists(config.config.DATABASE):
-    print("Database not found. Creating...")
-    Task.create_table()
-    print("Database created successful!")
+Task.create_table()
 
 
 # Registrar Blueprint
